@@ -7,6 +7,8 @@ from shutil import rmtree
 
 #CLASS model
 from NER_Models.NER_CRF import NER_CRF
+from NER_Models.NER_Bi_LSTM import NER_Bi_LSTM
+import importlib
 
 stopping_chars=["@", "#", "&", "$"]
 
@@ -131,7 +133,11 @@ def main():
     #POS MODEL
     print("\n Running Part of speech Model for Sumerian Language")
     if Flair==False:
-        os.system(f'python3 {pos_path} -i {output_dir}pipeline.txt -o {output_dir}pos_pipeline.txt')
+        #os.system(f'python3 {pos_path} -i {output_dir}pipeline.txt -o {output_dir}pos_pipeline.txt')
+        imp = importlib.import_module('POS_Models.{0}.{1}'.format(pos_tag, pos_tag))
+        POS_tag = getattr(imp, '{0}'.format(pos_tag) )
+        POS = POS_tag()
+        POS.predict(output='ATF_OUTPUT/pipeline1.txt')
     else:
         from FLAIR.predict import Predictions
         print("Using Flair Model")
@@ -144,7 +150,12 @@ def main():
     print("Running Named entity recognation Model for Sumerian Language")
     if Flair==False:
         #os.system(f'python3 {ner_path} -i {output_dir}pipeline.txt -o {output_dir}ner_pipeline.txt')
-        NER = NER_CRF.NER_CRF()
+        #NER = NER_CRF.NER_CRF()
+        #NER.predict(output='ATF_OUTPUT/pipeline2.txt')
+        # Dynamically call a class
+        imp = importlib.import_module('NER_Models.{0}.{1}'.format(ner_tag, ner_tag))
+        NER_tag = getattr(imp, '{0}'.format(ner_tag) )
+        NER = NER_tag()
         NER.predict(output='ATF_OUTPUT/pipeline2.txt')
     else:
         print("Using Flair Model")
@@ -197,7 +208,10 @@ if __name__=='__main__':
 
     
     args=parser.parse_args()
-    
+    #check
+    ner_tag = args.ner
+    pos_tag = args.pos
+
     input_path=args.input
     pos_path='POS_Models/'+args.pos+'/prediction.py'
     ner_path='NER_Models/'+args.ner+'/prediction.py'

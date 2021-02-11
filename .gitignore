@@ -1,7 +1,30 @@
-ATF_INPUT/
-CDLI_Data/
-FLAIR/
-py38/
-Saved_Models/
-Translation_Models/
-Word_Embeddings/
+# ignoring everything
+*
+# Track these
+#NER MODELS
+!NER_Models/NER_Bi_LSTM/NER_Bi_LSTM.py
+!NER_Models/NER_Bi_LSTM/utils.py
+
+!NER_Models/NER_Bi_LSTM_CRF/NER_Bi_LSTM_CRF.py
+!NER_Models/NER_Bi_LSTM_CRF/utils.py
+
+!NER_Models/NER_CRF/NER_CRF.py
+!NER_Models/NER_CRF/utils.py
+
+#POS MODELS
+!POS_Models/POS_Bi_LSTM/POS_Bi_LSTM.py
+!POS_Models/POS_Bi_LSTM/utils.py
+
+!POS_Models/POS_Bi_LSTM_CRF/POS_Bi_LSTM_CRF.py
+!POS_Models/POS_Bi_LSTM_CRF/utils.py
+
+!POS_Models/POS_CRF/POS_CRF.py
+!POS_Models/POS_CRF/utils.py
+
+!POS_Models/POS_HMM/POS_HMM.py
+!POS_Models/POS_HMM/utils.py
+
+#Pipeline
+!pipeline.py
+
+!.gitignore
